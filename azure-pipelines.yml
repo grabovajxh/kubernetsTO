@@ -1,8 +1,5 @@
 # Deploy to Azure Kubernetes Service
-- task: Docker@2
-  inputs:
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
