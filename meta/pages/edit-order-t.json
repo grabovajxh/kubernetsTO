@@ -1,0 +1,412 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Quantity",
+                              "component": "Quantity",
+                              "name": "QuantityLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "int?",
+                              "type": "numeric",
+                              "name": "Quantity",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${ordert.Quantity}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Customer",
+                              "component": "CustomerID",
+                              "name": "CustomerIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getCustomersForCustomerIDResult}",
+                              "textProperty": "LastName",
+                              "valueProperty": "CustomerID",
+                              "placeholder": "Choose Customer",
+                              "valueType": "int?",
+                              "showSearch": false,
+                              "count": "${getCustomersForCustomerIDCount}",
+                              "value": "${ordert.CustomerID}",
+                              "type": "dropdown-datagrid",
+                              "name": "CustomerID",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "selectedValue": "${getByCustomersForCustomerIDResult}",
+                              "events": {
+                                "loadData": [
+                                  {
+                                    "name": "TO.getCustomers",
+                                    "parameters": [
+                                      {
+                                        "name": "$top",
+                                        "value": "${event.top}"
+                                      },
+                                      {
+                                        "name": "$skip",
+                                        "value": "${event.skip}"
+                                      },
+                                      {
+                                        "name": "$orderby",
+                                        "value": "${event.orderby}"
+                                      },
+                                      {
+                                        "name": "$filter",
+                                        "value": "${event.filter}"
+                                      },
+                                      {
+                                        "name": "$count",
+                                        "value": "true"
+                                      }
+                                    ],
+                                    "then": [
+                                      {
+                                        "name": "getCustomersForCustomerIDResult",
+                                        "type": "set",
+                                        "value": "${result.Value.AsODataEnumerable()}",
+                                        "valueType": "IEnumerable<TiomsOrders.Models.To.Customer>"
+                                      },
+                                      {
+                                        "name": "getCustomersForCustomerIDCount",
+                                        "type": "set",
+                                        "value": "result.Count"
+                                      }
+                                    ],
+                                    "type": "invoke"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Product",
+                              "component": "ProductID",
+                              "name": "ProductIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getProductsForProductIDResult}",
+                              "textProperty": "ProductName",
+                              "valueProperty": "ProductID",
+                              "placeholder": "Choose Product",
+                              "valueType": "int?",
+                              "showSearch": false,
+                              "count": "${getProductsForProductIDCount}",
+                              "value": "${ordert.ProductID}",
+                              "type": "dropdown-datagrid",
+                              "name": "ProductID",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "selectedValue": "${getByProductsForProductIDResult}",
+                              "events": {
+                                "loadData": [
+                                  {
+                                    "name": "TO.getProducts",
+                                    "parameters": [
+                                      {
+                                        "name": "$top",
+                                        "value": "${event.top}"
+                                      },
+                                      {
+                                        "name": "$skip",
+                                        "value": "${event.skip}"
+                                      },
+                                      {
+                                        "name": "$orderby",
+                                        "value": "${event.orderby}"
+                                      },
+                                      {
+                                        "name": "$filter",
+                                        "value": "${event.filter}"
+                                      },
+                                      {
+                                        "name": "$count",
+                                        "value": "true"
+                                      }
+                                    ],
+                                    "then": [
+                                      {
+                                        "name": "getProductsForProductIDResult",
+                                        "type": "set",
+                                        "value": "${result.Value.AsODataEnumerable()}",
+                                        "valueType": "IEnumerable<TiomsOrders.Models.To.Product>"
+                                      },
+                                      {
+                                        "name": "getProductsForProductIDCount",
+                                        "type": "set",
+                                        "value": "result.Count"
+                                      }
+                                    ],
+                                    "type": "invoke"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Description",
+                              "component": "Description",
+                              "name": "DescriptionLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 255,
+                              "type": "textbox",
+                              "name": "Description",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${ordert.Description}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "style": {
+                                "marginLeft": "1rem"
+                              },
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to update OrderT",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "TO.updateOrderT",
+                        "parameters": [
+                          {
+                            "name": "OrderID",
+                            "value": "${parameters.OrderID}"
+                          },
+                          {
+                            "name": "OrderT",
+                            "value": "${ordert}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${ordert}",
+                            "condition": ""
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "itemType": "TiomsOrders.Models.To.OrderT",
+                  "data": "${ordert}",
+                  "visible": "${ordert != null}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "TO.getOrderTByOrderID",
+        "parameters": [
+          {
+            "name": "OrderID",
+            "value": "${parameters.OrderID}"
+          }
+        ],
+        "then": [
+          {
+            "name": "ordert",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "TiomsOrders.Models.To.OrderT"
+          },
+          {
+            "name": "TO.getCustomerByCustomerID",
+            "parameters": [
+              {
+                "name": "CustomerID",
+                "value": "${this.ordert.CustomerID}"
+              }
+            ],
+            "then": [
+              {
+                "name": "getByCustomersForCustomerIDResult",
+                "type": "set",
+                "value": "${result}",
+                "valueType": "TiomsOrders.Models.To.Customer"
+              }
+            ],
+            "condition": "this.ordert.CustomerID != null",
+            "type": "invoke"
+          },
+          {
+            "name": "TO.getProductByProductID",
+            "parameters": [
+              {
+                "name": "ProductID",
+                "value": "${this.ordert.ProductID}"
+              }
+            ],
+            "then": [
+              {
+                "name": "getByProductsForProductIDResult",
+                "type": "set",
+                "value": "${result}",
+                "valueType": "TiomsOrders.Models.To.Product"
+              }
+            ],
+            "condition": "this.ordert.ProductID != null",
+            "type": "invoke"
+          }
+        ],
+        "error": [],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "Edit Order T",
+  "layout": "Main"
+}

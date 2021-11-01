@@ -1,0 +1,48 @@
+﻿@page "/order-t"
+@layout MainLayout
+@inherits TiomsOrders.Pages.OrderTComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using TiomsOrders.Models.To
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="OrderT">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenDataGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Count="@getOrderTsCount" Data="@getOrderTsResult" FilterMode="FilterMode.Advanced" TItem="TiomsOrders.Models.To.OrderT" LoadData="@Grid0LoadData" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.OrderT" Property="Quantity" Title="Quantity">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.OrderT" FilterProperty="Customer.LastName" GroupProperty="Customer.LastName" Property="CustomerID" SortProperty="Customer.LastName" Title="Customer">
+              <Template Context="data">
+              @(data.Customer?.LastName)
+              </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.OrderT" FilterProperty="Product.ProductName" GroupProperty="Product.ProductName" Property="ProductID" SortProperty="Product.ProductName" Title="Product">
+              <Template Context="data">
+              @(data.Product?.ProductName)
+              </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.OrderT" FilterProperty="Product.Price" GroupProperty="Product.Price" Property="ProductID" SortProperty="Product.Price" Title="Product ID">
+              <Template Context="data">
+              @(data.Product?.Price)
+              </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.OrderT" Property="Description" Title="Description">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.OrderT" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="tiomsOrdersModelsToOrderT">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, tiomsOrdersModelsToOrderT))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenDataGridColumn>
+          </Columns>
+        </RadzenDataGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

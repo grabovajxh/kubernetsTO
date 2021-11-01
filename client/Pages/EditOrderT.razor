@@ -1,0 +1,67 @@
+﻿@page "/edit-order-t/{OrderID}"
+@layout MainLayout
+@inherits TiomsOrders.Pages.EditOrderTComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using TiomsOrders.Models.To
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm TItem="TiomsOrders.Models.To.OrderT" Data="@ordert" Visible="@(ordert != null)" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Quantity" Component="Quantity" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenNumeric style="width: 100%" @bind-Value="@(ordert.Quantity)" Name="Quantity">
+                </RadzenNumeric>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Customer" Component="CustomerID" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDownDataGrid Data="@getCustomersForCustomerIDResult" TextProperty="LastName" ValueProperty="CustomerID" Placeholder="Choose Customer" ShowSearch="false" Count="@getCustomersForCustomerIDCount" @bind-Value="@(ordert.CustomerID)" style="width: 100%" SelectedValue="@getByCustomersForCustomerIDResult" Name="CustomerID" LoadData="@CustomerIdLoadData">
+                </RadzenDropDownDataGrid>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Product" Component="ProductID" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDownDataGrid Data="@getProductsForProductIDResult" TextProperty="ProductName" ValueProperty="ProductID" Placeholder="Choose Product" ShowSearch="false" Count="@getProductsForProductIDCount" @bind-Value="@(ordert.ProductID)" style="width: 100%" SelectedValue="@getByProductsForProductIDResult" Name="ProductID" LoadData="@ProductIdLoadData">
+                </RadzenDropDownDataGrid>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Description" Component="Description" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="255" style="width: 100%" @bind-Value="@(ordert.Description)" Name="Description">
+                </RadzenTextBox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save" ButtonStyle="ButtonStyle.Primary">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

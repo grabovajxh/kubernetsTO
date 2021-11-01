@@ -1,0 +1,36 @@
+﻿@page "/"
+@page "/customer"
+@layout MainLayout
+@inherits TiomsOrders.Pages.CustomerComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using TiomsOrders.Models.To
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Customer">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenDataGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getCustomersResult" Count="@getCustomersCount" TItem="TiomsOrders.Models.To.Customer" LoadData="@Grid0LoadData" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Customer" Property="FullName" Title="Full Name">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Customer" Property="Address" Title="Address">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Customer" Property="City" Title="City">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Customer" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="tiomsOrdersModelsToCustomer">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, tiomsOrdersModelsToCustomer))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenDataGridColumn>
+          </Columns>
+        </RadzenDataGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

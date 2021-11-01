@@ -1,0 +1,67 @@
+﻿@page "/add-order-t"
+@layout MainLayout
+@inherits TiomsOrders.Pages.AddOrderTComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using TiomsOrders.Models.To
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@ordert" TItem="TiomsOrders.Models.To.OrderT" Visible="@(ordert != null)" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="Quantity" style="width: 100%" Text="Quantity">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenNumeric style="width: 100%" @bind-Value="@(ordert.Quantity)" Name="Quantity">
+                </RadzenNumeric>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="CustomerID" style="width: 100%" Text="Customer">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDownDataGrid Count="@getCustomersForCustomerIDCount" Data="@getCustomersForCustomerIDResult" ShowSearch="false" style="width: 100%" TextProperty="FullName" @bind-Value="@(ordert.CustomerID)" ValueProperty="CustomerID" Name="CustomerID" LoadData="@CustomerIdLoadData">
+                </RadzenDropDownDataGrid>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="ProductID" style="width: 100%" Text="Product">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDownDataGrid Count="@getProductsForProductIDCount" Data="@getProductsForProductIDResult" Placeholder="Choose Product" ShowSearch="false" style="width: 100%" TextProperty="ProductName" @bind-Value="@(ordert.ProductID)" ValueProperty="ProductID" Name="ProductID" LoadData="@ProductIdLoadData">
+                </RadzenDropDownDataGrid>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="Description" style="width: 100%" Text="Description">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="255" style="width: 100%" @bind-Value="@(ordert.Description)" Name="Description">
+                </RadzenTextBox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

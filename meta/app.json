@@ -1,0 +1,35 @@
+{
+  "dataSources": [
+    "TO"
+  ],
+  "generator": "@radzen/blazor-server",
+  "https": false,
+  "layouts": [
+    "Login",
+    "Main"
+  ],
+  "logo": "",
+  "name": "TiomsOrders",
+  "navigation": [
+    "Customer",
+    "Product",
+    "OrderT"
+  ],
+  "pages": [
+    "Customer",
+    "Add Customer",
+    "Edit Customer",
+    "Product",
+    "Add Product",
+    "Edit Product",
+    "OrderT",
+    "Add OrderT",
+    "Edit OrderT"
+  ],
+  "serverLang": "cs",
+  "serverProject": true,
+  "serverVersion": "5",
+  "startPage": "Customer",
+  "theme": "default",
+  "wasm": true
+}

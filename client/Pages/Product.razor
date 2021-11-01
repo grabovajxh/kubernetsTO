@@ -1,0 +1,37 @@
+﻿@page "/product"
+@layout MainLayout
+@inherits TiomsOrders.Pages.ProductComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using TiomsOrders.Models.To
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Product">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenDataGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getProductsResult" Count="@getProductsCount" TItem="TiomsOrders.Models.To.Product" LoadData="@Grid0LoadData" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Product" Property="ProductName" Title="Product Name">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Product" Property="Price" Title="Price">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Product" Property="Description" Title="Description">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Product" Property="Stock" Title="Stock">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TiomsOrders.Models.To.Product" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="tiomsOrdersModelsToProduct">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, tiomsOrdersModelsToProduct))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenDataGridColumn>
+          </Columns>
+        </RadzenDataGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

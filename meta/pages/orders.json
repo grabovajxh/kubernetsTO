@@ -1,0 +1,132 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Orders",
+          "type": "heading"
+        },
+        {
+          "events": {
+            "click": [
+              {
+                "path": "add-orders",
+                "type": "popup"
+              }
+            ]
+          },
+          "name": "button0",
+          "text": "Add",
+          "type": "button"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "attributes": [
+                    {
+                      "name": "@oninput",
+                      "value": "@(async(args) => {search = $\"{args.Value}\";await grid0.GoToPage(0);await Load();})"
+                    }
+                  ],
+                  "name": "textbox0",
+                  "placeholder": "Search ...",
+                  "style": {
+                    "display": "block",
+                    "marginBottom": "10px",
+                    "width": "100%"
+                  },
+                  "type": "textbox",
+                  "value": ""
+                },
+                {
+                  "allowFiltering": true,
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "columns": [
+                    {
+                      "property": "orersId",
+                      "title": "Orers Id"
+                    },
+                    {
+                      "property": "productsID",
+                      "title": "Products ID"
+                    },
+                    {
+                      "property": "Quantity",
+                      "title": "Quantity"
+                    },
+                    {
+                      "property": "customerID",
+                      "title": "Customer ID"
+                    },
+                    {
+                      "property": "Description",
+                      "title": "Description"
+                    }
+                  ],
+                  "data": "${getOrdersResult}",
+                  "events": {
+                    "loadData": []
+                  },
+                  "filterMode": "advanced",
+                  "itemType": "TiomsOrder.Models.TiomsOrders.Order",
+                  "name": "grid0",
+                  "title": "",
+                  "type": "datagrid"
+                }
+              ],
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "condition": "string.IsNullOrEmpty(search)",
+        "name": "search",
+        "type": "set",
+        "value": "\"\"",
+        "valueType": "string"
+      },
+      {
+        "name": "TiomsOrders.getOrders",
+        "parameters": [
+          {
+            "name": "$filter",
+            "operator": "or",
+            "value": [
+              {
+                "operation": "contains",
+                "property": "Description",
+                "type": "string",
+                "value": "\"${search}\""
+              }
+            ]
+          }
+        ],
+        "then": [
+          {
+            "name": "getOrdersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<TiomsOrder.Models.TiomsOrders.Order>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "Orders"
+}

@@ -1,0 +1,257 @@
+{
+  "access": "Everybody",
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Add Orders",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "class": "col-md-3",
+                  "components": [
+                    {
+                      "component": "textBox1",
+                      "name": "label1",
+                      "style": {
+                        "width": "100%"
+                      },
+                      "text": "Client",
+                      "type": "label"
+                    }
+                  ],
+                  "name": "col0",
+                  "type": "col"
+                },
+                {
+                  "class": "col-md-9",
+                  "components": [
+                    {
+                      "data": "${getCustomersResult}",
+                      "name": "dropdown0",
+                      "style": {
+                        "width": "536.4000091552734px"
+                      },
+                      "textProperty": "FirstName",
+                      "type": "dropdown",
+                      "valueProperty": "customersId"
+                    }
+                  ],
+                  "name": "col1",
+                  "type": "col"
+                }
+              ],
+              "name": "row0",
+              "style": {
+                "marginBottom": "1rem"
+              },
+              "type": "row"
+            },
+            {
+              "components": [
+                {
+                  "class": "col-md-3",
+                  "components": [
+                    {
+                      "component": "textBox1",
+                      "name": "label3",
+                      "style": {
+                        "width": "100%"
+                      },
+                      "text": "Prodcut",
+                      "type": "label"
+                    }
+                  ],
+                  "name": "col7",
+                  "type": "col"
+                },
+                {
+                  "class": "col-md-9",
+                  "components": [
+                    {
+                      "data": "${getProductsResult}",
+                      "name": "dropdown1",
+                      "style": {
+                        "width": "517.4000091552734px"
+                      },
+                      "textProperty": "Price",
+                      "type": "dropdown",
+                      "valueProperty": "productsID"
+                    }
+                  ],
+                  "name": "col8",
+                  "type": "col"
+                }
+              ],
+              "name": "row4",
+              "style": {
+                "marginBottom": "1rem"
+              },
+              "type": "row"
+            },
+            {
+              "components": [
+                {
+                  "class": "col-md-3",
+                  "components": [
+                    {
+                      "component": "textBox1",
+                      "name": "label2",
+                      "style": {
+                        "width": "100%"
+                      },
+                      "text": "Quantity",
+                      "type": "label"
+                    }
+                  ],
+                  "name": "col5",
+                  "type": "col"
+                },
+                {
+                  "class": "col-md-9",
+                  "components": [
+                    {
+                      "name": "textbox1",
+                      "style": {
+                        "display": "block",
+                        "width": "100%"
+                      },
+                      "type": "textbox"
+                    },
+                    {
+                      "component": "textBox1",
+                      "name": "requiredValidator2",
+                      "style": {
+                        "position": "absolute"
+                      },
+                      "text": "textBox1 is required",
+                      "type": "required-validator"
+                    }
+                  ],
+                  "name": "col6",
+                  "type": "col"
+                }
+              ],
+              "name": "row3",
+              "style": {
+                "marginBottom": "1rem"
+              },
+              "type": "row"
+            },
+            {
+              "components": [
+                {
+                  "class": "col-md-3",
+                  "components": [
+                    {
+                      "component": "textBox1",
+                      "name": "label0",
+                      "style": {
+                        "width": "100%"
+                      },
+                      "text": "Description",
+                      "type": "label"
+                    }
+                  ],
+                  "name": "col3",
+                  "type": "col"
+                },
+                {
+                  "class": "col-md-9",
+                  "components": [
+                    {
+                      "name": "textbox0",
+                      "style": {
+                        "display": "block",
+                        "width": "100%"
+                      },
+                      "type": "textbox"
+                    },
+                    {
+                      "component": "textBox1",
+                      "name": "requiredValidator0",
+                      "style": {
+                        "position": "absolute"
+                      },
+                      "text": "textBox1 is required",
+                      "type": "required-validator"
+                    }
+                  ],
+                  "name": "col4",
+                  "type": "col"
+                }
+              ],
+              "name": "row2",
+              "style": {
+                "marginBottom": "1rem"
+              },
+              "type": "row"
+            },
+            {
+              "components": [
+                {
+                  "class": "offset-sm-3 col-md-9",
+                  "components": [
+                    {
+                      "buttonType": "submit",
+                      "icon": "save",
+                      "name": "button0",
+                      "text": "Save",
+                      "type": "button"
+                    }
+                  ],
+                  "name": "col2",
+                  "type": "col"
+                }
+              ],
+              "name": "row1",
+              "type": "row"
+            }
+          ],
+          "name": "templateForm0",
+          "type": "template-form"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "TiomsOrders.getCustomers",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getCustomersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<TiomsOrder.Models.TiomsOrders.Customer>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "TiomsOrders.getProducts",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getProductsResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<TiomsOrder.Models.TiomsOrders.Product>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "Add Orders"
+}
