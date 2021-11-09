@@ -14,6 +14,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
 
+
 namespace TiomsOrders
 {
     public partial class ExportController : Controller
@@ -34,12 +35,12 @@ namespace TiomsOrders
                 var filter = query.ContainsKey("$filter") ? query["$filter"].ToString() : null;
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    items = items.Where(filter);
+                   // items = items.Where(filter);
                 }
 
                 if (query.ContainsKey("$orderBy"))
                 {
-                    items = items.OrderBy(query["$orderBy"].ToString());
+                   // items = items.OrderBy(query["$orderBy"].ToString());
                 }
 
                 if (query.ContainsKey("$skip"))
@@ -54,7 +55,7 @@ namespace TiomsOrders
 
                 if (query.ContainsKey("$select"))
                 {
-                    return items.Select($"new ({query["$select"].ToString()})");
+                   // return items.Select($"new ({query["$select"].ToString()})");
                 }
             }
 
