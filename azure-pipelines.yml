@@ -42,7 +42,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy to AKS
-    environment: 'k8sdev.defau'
+    environment: 'k8sdev'
     pool: 
        vmImage: ubuntu-latest
        steps: 
