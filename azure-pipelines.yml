@@ -1,6 +1,4 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
 
 trigger:
 - master
@@ -43,6 +41,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy to AKS
+    environment: 'k8sdev.default'
     pool: 
        vmImage: ubuntu-latest
        steps: 
