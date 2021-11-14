@@ -36,12 +36,13 @@ stages:
 - stage: Deploy
   displayName: Deploy to Dev
   dependsOn: Build
+
   variables:
    acsercret: k8sexamplesacrauth
   jobs:
   - deployment: Deploy
     displayName: Deploy to AKS
-   
+    environment: 'k8sdev.defau'
     pool: 
        vmImage: ubuntu-latest
        steps: 
