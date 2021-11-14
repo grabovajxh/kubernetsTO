@@ -1,0 +1,72 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  imageRepo: kubernetsapp
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerC'
+        repository: '$(imageRepo)'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/server/Dockerfile'
+        tags: |
+          $(tag)
+          latest
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)'
+        artifact: 'manifest'
+        publishLocation: 'pipeline'
+- stage: Deploy
+  displayName: Deploy to Dev
+  dependsOn: Build
+  variables:
+   acsercret: k8sexamplesacrauth
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy to AKS
+    pool: 
+       vmImage: ubuntu-latest
+       steps: 
+  
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            buildType: 'current'
+            artifactName: 'manifest'
+            targetPath: '$(Pipeline.Workspace)'
+        - task: KubernetesManifest@0
+          inputs:
+            action: 'createSecret'
+            kubernetesServiceConnection: 'KubernetsAKS'
+            namespace: 'default'
+            secretType: 'dockerRegistry'
+            secretName: '$(acrsecret)'
+            dockerRegistryEndpoint: 'DockerC'
+        - task: KubernetesManifest@0
+          inputs:
+            action: 'deploy'
+            kubernetesServiceConnection: 'KubernetsAKS'
+            namespace: 'default'
+            manifests: |
+                $(Pipeline.Workspace)/manifest/deployment.yml
+                $(Pipeline.Workspace)/manifest/service.yml
+
+
