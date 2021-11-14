@@ -33,10 +33,3 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
         artifact: 'manifest'
         publishLocation: 'pipeline'
-- stage: Deploy
-  displayName: Deploy to Dev
-  dependsOn: Build
-
-  variables:
-   acsercret: k8sexamplesacrauth
-  
