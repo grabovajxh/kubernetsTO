@@ -68,8 +68,8 @@ stages:
               kubernetesServiceConnection: 'kubernetsAKS'
               namespace: 'default'
               manifests: |
-                  $(Pipeline.Workspace)/manifests/deployment.yml
-                  $(Pipeline.Workspace)/manifests/service.yml
+                  $(Pipeline.Workspace)/deployment.yml
+                  $(Pipeline.Workspace)/service.yml
 
 
 
