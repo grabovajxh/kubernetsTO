@@ -1,0 +1,50 @@
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: kubernetsto.azurecr.io
+        username: ${{ secrets.acr_kubernetsto_username }}
+        password: ${{ secrets.acr_kubernetsto_password }}
+    
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/server" -f  "server/Dockerfile" -t kubernetsto.azurecr.io/kubernetsaks:${{ github.sha }} --label dockerfile-path=server/Dockerfile
+        docker push kubernetsto.azurecr.io/kubernetsaks:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      with:
+         kubeconfig: ${{ secrets.aks_kubernetsaks_kubeConfig }}
+      id: login
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep kubernetsaksbc2d | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace kubernetsaksbc2d`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: kubernetsaksbc2d
+        container-registry-url: kubernetsto.azurecr.io
+        container-registry-username: ${{ secrets.acr_kubernetsto_username }}
+        container-registry-password: ${{ secrets.acr_kubernetsto_password }}
+        secret-name: kubernetsaksdockerauth
+       
+    - uses: azure/k8s-deploy@v1.2
+      with:
+        namespace: kubernetsaksbc2d
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          kubernetsto.azurecr.io/kubernetsaks:${{ github.sha }}
+        imagepullsecrets: |
+          kubernetsaksdockerauth
