@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "kubernetsaks-f457"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "kubernetsaks-f457"
+  template:
+    metadata:
+      labels:
+        app: "kubernetsaks-f457"
+    spec:
+      containers:
+        - name: "kubernetsaks-f457"
+          image: "kubernetsto.azurecr.io/kubernetsaks"
+          ports:
+          - containerPort: 80
