@@ -38,6 +38,8 @@ stages:
   dependsOn: Build
   variables:
    acsercret: k8sexamplesacrauth
+   acrdevurl: 'kubernetsto.azurecr.io'
+   replicaNo: 3
   jobs:
   - deployment: Deploy
     displayName: Deploy to AKS
@@ -69,7 +71,9 @@ stages:
               namespace: 'default'
               manifests: |
                   $(Pipeline.Workspace)/manifests/deployment.yml
-                  $(Pipeline.Workspace)/manifests/service.yml
+                   imagePullSecrets: |
+                        $(acsercret)
+                        containers: '$(acrdevurl)/$(imageRepo):$(tag)'
 
 
 
