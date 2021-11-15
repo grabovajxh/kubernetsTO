@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: sampleapp 
+  name: kubernetsapp 
 spec:
   replicas: #replicaNo#
   selector:
     matchLabels:
-      app: sampleapp
+      app: kubernetsapp
   template:
     metadata:
       labels:
-        app: sampleapp 
+        app: kubernetsapp 
     spec:
       containers:
-        - name: sampleapp 
-          image: k8sexamplesacr.azurecr.io/sampleapp
+        - name: kubernetsapp 
+          image: kubernetsto.azurecr.io/kubernetsapp
           ports:
           - containerPort: 80
