@@ -15,5 +15,6 @@ spec:
       containers:
         - name: "kubernetsapp"
           image: "kubernetsto.azurecr.io/kubernetsapp"
+          imagePullPolicy: Always
           ports:
           - containerPort: 80
