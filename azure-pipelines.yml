@@ -29,11 +29,7 @@ stages:
           $(tag)
           latest
           
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: '$(Pipeline.Workspace)/s/manifests'
-        artifact: 'manifests'
-        publishLocation: 'pipeline'
+   
     - task: PublishPipelineArtifact@1
       inputs:
         artifactName: 'manifests'
