@@ -33,7 +33,7 @@ stages:
     - task: PublishPipelineArtifact@1
       inputs:
               targetPath: '$(Pipeline.Workspace)'
-              artifact: 'test'
+              artifact: 'manifests'
               publishLocation: 'pipeline'
    
 
@@ -57,9 +57,13 @@ stages:
   
           - task: DownloadPipelineArtifact@2
             inputs:
-              
-              artifactName: 'manifests'
-              downloadPath: '$(Pipeline.Workspace)/manifests'
+              buildType: 'specific'
+              project: 'b76209c2-d2ef-465d-86f4-25164a2ac25d'
+              definition: '11'
+              specificBuildWithTriggering: true
+              buildVersionToDownload: 'latest'
+              targetPath: '$(Pipeline.Workspace)'
+          
           - task: KubernetesManifest@0
             inputs:
               action: 'createSecret'
