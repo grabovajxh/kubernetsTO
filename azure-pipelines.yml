@@ -30,11 +30,12 @@ stages:
         
         tags: |
           $(tag)
-          
     - task: PublishPipelineArtifact@1
       inputs:
-        artifactName: 'manifests'
-        path: 'manifests'
+              targetPath: '$(Pipeline.Workspace)'
+              artifact: 'test'
+              publishLocation: 'pipeline'
+   
 
 - stage: Deploy
   displayName: Deploy to Dev
