@@ -76,12 +76,12 @@ stages:
             inputs:
               action: 'deploy'
               kubernetesServiceConnection: 'kubernetsAKS'
-              namespace: 'default'
-              manifests: |
-                  $(Pipeline.Workspace)/manifests/deployment.yml
-                   imagePullSecrets: |
-                        $(acsercret)
-                        containers: '$(acrdevurl)/$(imageRepo):$(tag)'
+              namespace: 'deafult'
+              manifests: '$(Pipeline.Workspace)'
+              containers: '$(acrdevurl)/$(imageRepo):$(tag)'
+              imagePullSecrets: '$(acsercret)'
+              rolloutStatusTimeout: '60'
+      
 
 
 
